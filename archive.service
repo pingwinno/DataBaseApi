@@ -5,10 +5,10 @@ After=multi-user.target
 
 [Service]
 Type=forking
-User=archive-daemon
+User=tom-daemon
 
 ExecStart=/bin/bash /usr/local/bin/archive.sh start
-ExecStop=/bin/bash /usr/local/bin/tarchive.sh stop
+ExecStop=/bin/bash /usr/local/bin/archive.sh stop
 ExecReload =/bin/bash /usr/local/bin/archive.sh restart
 
 [Install]
