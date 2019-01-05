@@ -6,6 +6,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Projections;
 import com.mongodb.client.model.Sorts;
+import com.mongodb.client.model.TextSearchOptions;
 import com.pingwinno.infrastructure.MongoDBHandler;
 import com.pingwinno.infrastructure.QueryBuilder;
 import com.pingwinno.infrastructure.QueryModel;
@@ -50,6 +51,10 @@ public class MongoQueryBuilder implements QueryBuilder {
             case "ls":
                 filters = Filters.lt(queryModel.getEqualsField(), queryModel.getEqualsValue());
                 break;
+            case "text":
+                filters = Filters.text(queryModel.getEqualsValue(),new TextSearchOptions().language(queryModel.getEqualsField()));
+                break;
+
         }
     }
 
@@ -62,6 +67,6 @@ public class MongoQueryBuilder implements QueryBuilder {
     public String buildJson() throws JsonProcessingException {
         FindIterable<Document> queryResult = MongoDBHandler.getCollection(queryModel.getCollection()).find(filters).
                 projection(projection).sort(sort).skip(queryModel.getSkip()).limit(queryModel.getLimit());
-        return new ObjectMapper().writeValueAsString(queryModel);
+        return new ObjectMapper().writeValueAsString(queryResult);
     }
 }

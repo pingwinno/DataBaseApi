@@ -12,7 +12,7 @@ public class MongoQueryDirector {
         if (queryModel.getSortBy() != null){
             mongoQueryBuilder.setSort();
         }
-        if (!queryModel.getIncludeFields().isEmpty()){
+        if (queryModel.getIncludeFields() != null){
             mongoQueryBuilder.setProjection();
         }
         return mongoQueryBuilder.buildJson();
