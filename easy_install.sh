@@ -8,7 +8,7 @@ FILE=/usr/local/twitch-o-matic/twitch-o-matic.jar
 if [ -f $FILE ]; then
   echo "tom installed. Updating...."
   git clone https://github.com/pingwinno/Twitch-o-matic.git
-  cd ./Twitch-o-matic
+  cd ./twitch-o-matic
   mvn package
 else
 ### installing dependencies
