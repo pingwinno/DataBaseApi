@@ -38,7 +38,7 @@ public class Main implements Daemon {
                         register(ExeptionConfig.class).register(CORSResponseFilter.class);
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        Server jettyServer = new Server(11111);
+        Server jettyServer = new Server(80);
         jettyServer.setHandler(context);
 
         ServletHolder jerseyServlet = context.addServlet(
