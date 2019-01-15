@@ -24,8 +24,6 @@ else
   mkdir /var/log/archive/
   chown archive-daemon /var/log/archive/
   chmod u+w /var/log/archive/
-  mkdir /etc/archive/
-  mv config.prop /etc/archive/
 fi
 
 
@@ -34,7 +32,7 @@ mv archive.sh /usr/local/bin/
 chmod +x /usr/local/bin/archive.sh
 
 
-cp twitch-o-matic.service /etc/systemd/system/archive.service
+cp archive.service /etc/systemd/system/archive.service
 cd ../
 rm -rf StreamArchiveBackend
 chmod 644 /etc/systemd/system/archive.service
