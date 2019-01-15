@@ -7,8 +7,8 @@ cd /tmp
 FILE=/usr/local/twitch-o-matic/twitch-o-matic.jar
 if [ -f $FILE ]; then
   echo "tom installed. Updating...."
-  git clone https://github.com/pingwinno/Twitch-o-matic.git
-  cd ./twitch-o-matic
+  git clone https://github.com/TwitchStreamhub/StreamArchiveBackend.git
+  cd ./StreamArchiveBackend
   mvn package
 else
 ### installing dependencies
@@ -16,32 +16,29 @@ else
   apt update
   apt upgrade -y
   apt install -y maven git jsvc
-  git clone https://github.com/pingwinno/twitch-o-matic.git
-  cd ./Twitch-o-matic
+  git clone https://github.com/TwitchStreamhub/StreamArchiveBackend.git
+  cd ./StreamArchiveBackend
   mvn package
-  adduser --system --no-create-home --group tom-daemon
-  mkdir /usr/local/twitch-o-matic/
-  mkdir /usr/local/twitch-o-matic//db/
-  chown tom-daemon /usr/local/twitch-o-matic//db/
-  chmod u+w /usr/local/twitch-o-matic//db/
-  mkdir /var/log/tom/
-  chown tom-daemon /var/log/tom/
-  chmod u+w /var/log/tom/
-  mkdir /etc/tom/
-  mv config.prop /etc/tom/
+  adduser --system --no-create-home --group archive-daemon
+  mkdir /usr/local/StreamArchiveBackend/
+  mkdir /var/log/archive/
+  chown archive-daemon /var/log/archive/
+  chmod u+w /var/log/archive/
+  mkdir /etc/archive/
+  mv config.prop /etc/archive/
 fi
 
 
-mv ./target/twitch-o-matic.jar /usr/local/twitch-o-matic/
-mv twitch-o-matic.sh /usr/local/bin/
-chmod +x /usr/local/bin/twitch-o-matic.sh
+mv ./target/StreamArchiveBackend.jar /usr/local/StreamArchiveBackend/
+mv archive.sh /usr/local/bin/
+chmod +x /usr/local/bin/archive.sh
 
 
-cp twitch-o-matic.service /etc/systemd/system/twitch-o-matic.service
+cp twitch-o-matic.service /etc/systemd/system/archive.service
 cd ../
-rm -rf twitch-o-matic
-chmod 644 /etc/systemd/system/twitch-o-matic.service
+rm -rf StreamArchiveBackend
+chmod 644 /etc/systemd/system/archive.service
 systemctl daemon-reload
-systemctl enable twitch-o-matic.service
+systemctl enable archive.service
 
 echo -e "\033[32m Installation completed.\033[0m"
