@@ -2,9 +2,12 @@ package com.pingwinno;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pingwinno.infrastructure.CORSResponseFilter;
+import com.pingwinno.infrastructure.ExeptionConfig;
 import com.pingwinno.infrastructure.MongoDBHandler;
 import com.pingwinno.presentation.DbHandler;
 import com.pingwinno.presentation.OldApi;
+import com.pingwinno.presentation.SiteLoader;
 import org.apache.commons.daemon.Daemon;
 import org.apache.commons.daemon.DaemonContext;
 import org.eclipse.jetty.server.Server;
@@ -31,7 +34,8 @@ public class Main implements Daemon {
         context.setContextPath("/");
 
         final Application application = new ResourceConfig()
-                .packages("org.glassfish.jersey.examples.jackson").register(JacksonFeature.class);
+                .packages("org.glassfish.jersey.examples.jackson").register(JacksonFeature.class).
+                        register(ExeptionConfig.class).register(CORSResponseFilter.class);
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         Server jettyServer = new Server(11111);
@@ -44,7 +48,8 @@ public class Main implements Daemon {
         // Tells the Jersey Servlet which REST service/class to load.
         jerseyServlet.setInitParameter(
                 "jersey.config.server.provider.classnames",
-                String.join(",",OldApi.class.getCanonicalName(),DbHandler.class.getCanonicalName())
+                String.join(",",OldApi.class.getCanonicalName(),DbHandler.class.getCanonicalName(),
+                        SiteLoader.class.getCanonicalName())
                 );
 
 
