@@ -27,7 +27,7 @@ else
 fi
 
 
-mv ./target/StreamArchiveBackend.jar /usr/local/StreamArchiveBackend/
+mv ./target/ArchivePortal.jar /usr/local/StreamArchiveBackend/
 mv archive.sh /usr/local/bin/
 chmod +x /usr/local/bin/archive.sh
 
