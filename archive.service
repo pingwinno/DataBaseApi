@@ -5,7 +5,7 @@ After=multi-user.target
 
 [Service]
 Type=forking
-User=tom-daemon
+User=archive-daemon
 
 ExecStart=/bin/bash /usr/local/bin/archive.sh start
 ExecStop=/bin/bash /usr/local/bin/archive.sh stop
