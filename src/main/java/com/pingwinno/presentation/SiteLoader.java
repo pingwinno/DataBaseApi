@@ -37,11 +37,21 @@ public class SiteLoader {
             String user = urlParts[0];
             java.nio.file.Path path = Paths.get("/usr/local/StreamArchiveBackend/"+user + "/index.html");
             log.debug("streamer {} page loaded", user);
-            return Response.ok().entity(new File(path.toString())).type(Files.probeContentType(path)).build();
+            return Response.ok().entity(new File(path.toString())).type(Files.probeContentType(path))
+                    .header("Access-Control-Allow-Origin", "*")
+                    .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                    .header("Access-Control-Allow-Credentials", "true")
+                    .header("Access-Control-Allow-Methods", "GET, POST")
+                    .header("Access-Control-Max-Age", "1209600").build();
         } else {
             java.nio.file.Path path = Paths.get("/usr/local/StreamArchiveBackend/hub/index.html");
 
-            return Response.ok().entity(new File(path.toString())).type(Files.probeContentType(path)).build();
+            return Response.ok().entity(new File(path.toString())).type(Files.probeContentType(path))
+                    .header("Access-Control-Allow-Origin", "*")
+                    .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                    .header("Access-Control-Allow-Credentials", "true")
+                    .header("Access-Control-Allow-Methods", "GET, POST")
+                    .header("Access-Control-Max-Age", "1209600").build();
         }
     }
 
@@ -56,11 +66,21 @@ public class SiteLoader {
             String user = urlParts[0];
             java.nio.file.Path path = Paths.get("/usr/local/StreamArchiveBackend/"+ user + "/static/" + folder + "/" + fileName);
 
-            return Response.ok().entity(new File(path.toString())).type(Files.probeContentType(path)).build();
+            return Response.ok().entity(new File(path.toString())).type(Files.probeContentType(path))
+                    .header("Access-Control-Allow-Origin", "*")
+                    .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                    .header("Access-Control-Allow-Credentials", "true")
+                    .header("Access-Control-Allow-Methods", "GET, POST")
+                    .header("Access-Control-Max-Age", "1209600").build();
         } else {
             java.nio.file.Path path = Paths.get("/usr/local/StreamArchiveBackend/hub/" + fileName);
 
-            return Response.ok().entity(new File(path.toString())).type(Files.probeContentType(path)).build();
+            return Response.ok().entity(new File(path.toString())).type(Files.probeContentType(path))
+                    .header("Access-Control-Allow-Origin", "*")
+                    .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                    .header("Access-Control-Allow-Credentials", "true")
+                    .header("Access-Control-Allow-Methods", "GET, POST")
+                    .header("Access-Control-Max-Age", "1209600").build();
         }
 
     }
@@ -72,7 +92,12 @@ public class SiteLoader {
 
         java.nio.file.Path path = Paths.get("/usr/local/StreamArchiveBackend/hub/" + fileName);
 
-        return Response.ok().entity(new File(path.toString())).type(Files.probeContentType(path)).build();
+        return Response.ok().entity(new File(path.toString())).type(Files.probeContentType(path))
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                .header("Access-Control-Allow-Credentials", "true")
+                .header("Access-Control-Allow-Methods", "GET, POST")
+                .header("Access-Control-Max-Age", "1209600").build();
     }
 
 
