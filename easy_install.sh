@@ -2,9 +2,9 @@
 cd /tmp
 
 
-### installing Twitch-o-matic
+### installing ArchivePortal.jar
 
-FILE=/usr/local/twitch-o-matic/twitch-o-matic.jar
+FILE=/usr/local/StreamArchiveBackend/ArchivePortal.jar
 if [ -f $FILE ]; then
   echo "tom installed. Updating...."
   git clone https://github.com/TwitchStreamhub/StreamArchiveBackend.git
