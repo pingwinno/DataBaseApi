@@ -3,7 +3,6 @@ package com.pingwinno;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pingwinno.infrastructure.CORSResponseFilter;
-import com.pingwinno.infrastructure.ExeptionConfig;
 import com.pingwinno.infrastructure.MongoDBHandler;
 import com.pingwinno.presentation.DbHandler;
 import com.pingwinno.presentation.OldApi;
@@ -34,11 +33,10 @@ public class Main implements Daemon {
         context.setContextPath("/");
 
         final Application application = new ResourceConfig()
-                .packages("org.glassfish.jersey.examples.jackson").register(JacksonFeature.class).
-                        register(ExeptionConfig.class).register(CORSResponseFilter.class);
+                .packages("org.glassfish.jersey.examples.jackson").register(JacksonFeature.class).register(CORSResponseFilter.class);
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        Server jettyServer = new Server(80);
+        Server jettyServer = new Server(8080);
         jettyServer.setHandler(context);
 
         ServletHolder jerseyServlet = context.addServlet(

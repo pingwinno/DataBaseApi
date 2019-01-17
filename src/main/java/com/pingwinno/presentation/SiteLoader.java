@@ -12,6 +12,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 
 @Path("/")
@@ -19,59 +22,59 @@ public class SiteLoader {
     private static final Logger log = LoggerFactory.getLogger(SiteLoader.class);
     @Context
     UriInfo uri;
-    private ClassLoader classLoader = getClass().getClassLoader();
+
 
     @GET
     @Produces(MediaType.TEXT_HTML)
-    public Response getIndex() {
+    public Response getIndex() throws IOException {
 
-        String baseUrl = uri.getBaseUri().toString();
-        String[] urlParts = baseUrl.split(".");
+        String baseUrl = uri.getBaseUri().getHost();
+        String[] urlParts = baseUrl.split("\\.");
+        log.trace(baseUrl);
 
-        if (urlParts.length == 3) {
+
+        if (!urlParts[0].equals("streamarchive")) {
             String user = urlParts[0];
-            File file = new File(classLoader.getResource(user + "/index.html").getFile());
-            return Response.ok().build();
+            java.nio.file.Path path = Paths.get(user + "/index.html");
+            log.debug("streamer {} page loaded", user);
+            return Response.ok().entity(new File(path.toString())).type(Files.probeContentType(path)).build();
         } else {
-            File file = new File(classLoader.getResource("hub/index.html").getFile());
+            java.nio.file.Path path = Paths.get("hub/index.html");
 
-            return Response.ok().entity(file).build();
+            return Response.ok().entity(new File(path.toString())).type(Files.probeContentType(path)).build();
         }
     }
 
     @GET
     @Path("static/{folder}/{file}")
-    @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Response downloadFile(@PathParam("folder") String folder, @PathParam("file") String fileName) {
+    public Response downloadFile(@PathParam("folder") String folder, @PathParam("file") String fileName) throws IOException {
 
         String baseUrl = uri.getBaseUri().toString();
         String[] urlParts = baseUrl.split(".");
 
-        if (urlParts.length == 3) {
+        if (!urlParts[0].equals("streamarchive")) {
             String user = urlParts[0];
-            File file = new File(classLoader.getResource(user + "/static/" + folder + "/" + fileName).getFile());
+            java.nio.file.Path path = Paths.get(user + "/static/" + folder + "/" + fileName);
 
-            return Response.ok().entity(file).build();
+            return Response.ok().entity(new File(path.toString())).type(Files.probeContentType(path)).build();
         } else {
-            File file = new File(classLoader.getResource("hub/" + fileName).getFile());
+            java.nio.file.Path path = Paths.get("hub/" + fileName);
 
-            return Response.ok().entity(file).build();
+            return Response.ok().entity(new File(path.toString())).type(Files.probeContentType(path)).build();
         }
 
     }
 
     @GET
     @Path("{file}")
-    @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Response downloadFile(@PathParam("file") String fileName) {
+    public Response downloadFile(@PathParam("file") String fileName) throws IOException {
 
-        String baseUrl = uri.getBaseUri().toString();
-        String[] urlParts = baseUrl.split(".");
 
-        File file = new File(classLoader.getResource("hub/" + fileName).getFile());
+        java.nio.file.Path path = Paths.get("hub/" + fileName);
 
-        return Response.ok().entity(file).build();
+        return Response.ok().entity(new File(path.toString())).type(Files.probeContentType(path)).build();
     }
+
 
 }
 
