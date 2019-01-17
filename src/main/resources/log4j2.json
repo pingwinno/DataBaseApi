@@ -15,7 +15,7 @@
             "pattern": "%d{dd-MMM-yyyy HH:mm:ss} %highlight{%-5level} %c{1} %m %n"
           },
           "ThresholdFilter": {
-            "level": "info"
+            "level": "debug"
           }
         },
         {

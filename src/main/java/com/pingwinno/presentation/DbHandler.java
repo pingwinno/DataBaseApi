@@ -90,6 +90,11 @@ public class DbHandler {
 
         queryModel.setIncludeFields(new ArrayList<>(includeFields));
 
-        return Response.accepted().entity(MongoQueryDirector.makeBuilder(queryModel)).build();
+        return Response.accepted().entity(MongoQueryDirector.makeBuilder(queryModel))
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                .header("Access-Control-Allow-Credentials", "true")
+                .header("Access-Control-Allow-Methods", "GET, POST")
+                .header("Access-Control-Max-Age", "1209600").build();
     }
 }
