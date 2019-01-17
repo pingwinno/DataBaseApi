@@ -49,8 +49,8 @@ public class SiteLoader {
     @Path("static/{folder}/{file}")
     public Response downloadFile(@PathParam("folder") String folder, @PathParam("file") String fileName) throws IOException {
 
-        String baseUrl = uri.getBaseUri().toString();
-        String[] urlParts = baseUrl.split(".");
+        String baseUrl = uri.getBaseUri().getHost();
+        String[] urlParts = baseUrl.split("\\.");
 
         if (!urlParts[0].equals("streamarchive")) {
             String user = urlParts[0];

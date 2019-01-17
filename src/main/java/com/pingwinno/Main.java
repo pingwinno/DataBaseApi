@@ -33,7 +33,7 @@ public class Main implements Daemon {
         context.setContextPath("/");
 
         final Application application = new ResourceConfig()
-                .packages("org.glassfish.jersey.examples.jackson").register(JacksonFeature.class).register(CORSResponseFilter.class);
+                .packages("org.glassfish.jersey.examples.jackson").register(JacksonFeature.class);
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         Server jettyServer = new Server(8080);
