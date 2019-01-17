@@ -35,11 +35,11 @@ public class SiteLoader {
 
         if (!urlParts[0].equals("streamarchive")) {
             String user = urlParts[0];
-            java.nio.file.Path path = Paths.get(user + "/index.html");
+            java.nio.file.Path path = Paths.get("/usr/local/StreamArchiveBackend/" +user + "/index.html");
             log.debug("streamer {} page loaded", user);
             return Response.ok().entity(new File(path.toString())).type(Files.probeContentType(path)).build();
         } else {
-            java.nio.file.Path path = Paths.get("hub/index.html");
+            java.nio.file.Path path = Paths.get("/usr/local/StreamArchiveBackend/hub/index.html");
 
             return Response.ok().entity(new File(path.toString())).type(Files.probeContentType(path)).build();
         }
@@ -54,11 +54,11 @@ public class SiteLoader {
 
         if (!urlParts[0].equals("streamarchive")) {
             String user = urlParts[0];
-            java.nio.file.Path path = Paths.get(user + "/static/" + folder + "/" + fileName);
+            java.nio.file.Path path = Paths.get("/usr/local/StreamArchiveBackend/"+user + "/static/" + folder + "/" + fileName);
 
             return Response.ok().entity(new File(path.toString())).type(Files.probeContentType(path)).build();
         } else {
-            java.nio.file.Path path = Paths.get("hub/" + fileName);
+            java.nio.file.Path path = Paths.get("/usr/local/StreamArchiveBackend/hub/" + fileName);
 
             return Response.ok().entity(new File(path.toString())).type(Files.probeContentType(path)).build();
         }
@@ -70,7 +70,7 @@ public class SiteLoader {
     public Response downloadFile(@PathParam("file") String fileName) throws IOException {
 
 
-        java.nio.file.Path path = Paths.get("hub/" + fileName);
+        java.nio.file.Path path = Paths.get("/usr/local/StreamArchiveBackend/hub/" + fileName);
 
         return Response.ok().entity(new File(path.toString())).type(Files.probeContentType(path)).build();
     }
