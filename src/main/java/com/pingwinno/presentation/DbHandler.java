@@ -89,7 +89,6 @@ public class DbHandler {
         queryModel.setEqualsField(equalsField);
         queryModel.setEqualsValue(equalsValue);
 
-
         queryModel.setLimit(limit);
         queryModel.setSkip(skip);
 

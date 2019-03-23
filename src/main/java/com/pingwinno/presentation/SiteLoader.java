@@ -23,7 +23,6 @@ public class SiteLoader {
     @Context
     UriInfo uri;
 
-
     @GET
     @Produces(MediaType.TEXT_HTML)
     public Response getIndex() throws IOException {
@@ -31,7 +30,6 @@ public class SiteLoader {
         String baseUrl = uri.getBaseUri().getHost();
         String[] urlParts = baseUrl.split("\\.");
         log.trace(baseUrl);
-
 
         if (!urlParts[0].equals("streamarchive")) {
             String user = urlParts[0];
@@ -63,7 +61,6 @@ public class SiteLoader {
         String baseUrl = uri.getBaseUri().getHost();
         String[] urlParts = baseUrl.split("\\.");
         log.trace(baseUrl);
-
 
         if (!urlParts[0].equals("streamarchive")) {
             String user = urlParts[0];
@@ -146,14 +143,11 @@ public class SiteLoader {
                     .header("Access-Control-Allow-Methods", "GET, POST")
                     .header("Access-Control-Max-Age", "1209600").build();
         }
-
     }
 
     @GET
     @Path("{file}")
     public Response downloadFile(@PathParam("file") String fileName) throws IOException {
-
-
         java.nio.file.Path path = Paths.get("/usr/local/StreamArchiveBackend/hub/" + fileName);
 
         return Response.ok().entity(new File(path.toString())).type(Files.probeContentType(path))

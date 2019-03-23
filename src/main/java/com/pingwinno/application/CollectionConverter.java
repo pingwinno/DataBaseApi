@@ -3,7 +3,6 @@ package com.pingwinno.application;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 
 public class CollectionConverter {

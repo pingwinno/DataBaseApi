@@ -1,12 +1,12 @@
 package com.pingwinno.domain;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Projections;
 import com.mongodb.client.model.Sorts;
 import com.mongodb.client.model.TextSearchOptions;
+import com.pingwinno.application.CollectionConverter;
 import com.pingwinno.infrastructure.MongoDBHandler;
 import com.pingwinno.infrastructure.QueryBuilder;
 import com.pingwinno.infrastructure.QueryModel;
@@ -67,6 +67,6 @@ public class MongoQueryBuilder implements QueryBuilder {
     public String buildJson() throws JsonProcessingException {
         FindIterable<Document> queryResult = MongoDBHandler.getCollection(queryModel.getCollection()).find(filters).
                 projection(projection).sort(sort).skip(queryModel.getSkip()).limit(queryModel.getLimit());
-        return new ObjectMapper().writeValueAsString(queryResult);
+        return CollectionConverter.convert(queryResult);
     }
 }

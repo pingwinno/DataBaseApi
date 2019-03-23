@@ -2,7 +2,6 @@ package com.pingwinno;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pingwinno.infrastructure.CORSResponseFilter;
 import com.pingwinno.infrastructure.MongoDBHandler;
 import com.pingwinno.presentation.DbHandler;
 import com.pingwinno.presentation.OldApi;
@@ -49,8 +48,6 @@ public class Main implements Daemon {
                 String.join(",",OldApi.class.getCanonicalName(),DbHandler.class.getCanonicalName(),
                         SiteLoader.class.getCanonicalName())
                 );
-
-
         try {
             jettyServer.start();
             jettyServer.join();
@@ -59,8 +56,6 @@ public class Main implements Daemon {
         } finally {
             jettyServer.destroy();
         }
-
-
         log.info("Server started");
     }
 
