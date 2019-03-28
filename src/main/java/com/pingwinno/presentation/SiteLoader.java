@@ -105,7 +105,7 @@ public class SiteLoader {
     }
 
     @GET
-    @Path("/{folder}/{file}")
+    @Path("/{folder}")
     public Response downloadFile(@PathParam("folder") String folder, @PathParam("file") String fileName) throws IOException {
 
         String baseUrl = uri.getBaseUri().getHost();
@@ -113,7 +113,7 @@ public class SiteLoader {
         log.debug("folder: {}, file: {}", folder, fileName);
         if (!urlParts[0].equals("streamarchive")) {
             String user = urlParts[0];
-            java.nio.file.Path path = Paths.get("/usr/local/StreamArchiveBackend/" + user + "/" + folder + "/" + fileName);
+            java.nio.file.Path path = Paths.get("/usr/local/StreamArchiveBackend/" + uri.getAbsolutePath());
 
             return Response.ok().entity(new File(path.toString())).type(Files.probeContentType(path))
                     .header("Access-Control-Allow-Origin", "*")
