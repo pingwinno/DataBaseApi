@@ -128,7 +128,7 @@ public class SiteLoader {
                     .header("Access-Control-Allow-Credentials", "true")
                     .header("Access-Control-Allow-Methods", "GET, POST")
                     .header("Access-Control-Max-Age", "1209600").build();
-        } catch (IOException e) {
+        } catch (Exception e) {
             log.error("Can't upload file {}", e);
             return Response.serverError().build();
         }
