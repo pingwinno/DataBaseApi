@@ -93,7 +93,7 @@ public class SiteLoader {
         log.trace(baseUrl);
         String streamer = urlParts[0];
         java.nio.file.Path path = Paths.get(SITES_PATH + streamer + "/index.html");
-        log.debug("streamer {} page loaded", streamer);
+        log.trace("streamer {} page loaded", streamer);
         try {
             return Response.ok().entity(new File(path.toString())).type(Files.probeContentType(path))
                     .header("Access-Control-Allow-Origin", "*")
@@ -118,7 +118,6 @@ public class SiteLoader {
         } else {
             streamer = "hub";
         }
-        log.info(uri.getAbsolutePath() + " " + SITES_PATH + streamer + "/" + uri.getPath());
 
         try {
             java.nio.file.Path path = Paths.get(SITES_PATH + streamer + "/" + uri.getPath());
