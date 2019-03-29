@@ -26,7 +26,7 @@ public class SiteLoader {
 
     @GET
     @Produces(MediaType.TEXT_HTML)
-    public Response getIndex() throws IOException {
+    public Response getIndex() {
         String streamer;
         String baseUrl = uri.getBaseUri().getHost();
         String[] urlParts = baseUrl.split("\\.");
@@ -39,18 +39,23 @@ public class SiteLoader {
         }
         java.nio.file.Path path = Paths.get(SITES_PATH + streamer + "/index.html");
         log.debug("streamer {} page loaded", streamer);
+        try {
             return Response.ok().entity(new File(path.toString())).type(Files.probeContentType(path))
                     .header("Access-Control-Allow-Origin", "*")
                     .header("Access-Control-Allow-Headers", "origin, content-type, accept")
                     .header("Access-Control-Allow-Credentials", "true")
                     .header("Access-Control-Allow-Methods", "GET, POST")
                     .header("Access-Control-Max-Age", "1209600").build();
+        } catch (IOException e) {
+            log.error("Can't upload file {}", e);
+            return Response.serverError().build();
+        }
     }
 
     @GET
     @Path("/about")
     @Produces(MediaType.TEXT_HTML)
-    public Response getAbout() throws IOException {
+    public Response getAbout() {
         String streamer;
         String baseUrl = uri.getBaseUri().getHost();
 
@@ -64,18 +69,23 @@ public class SiteLoader {
         }
         java.nio.file.Path path = Paths.get(SITES_PATH + streamer + "/index.html");
         log.debug("streamer {} page loaded", streamer);
+        try {
             return Response.ok().entity(new File(path.toString())).type(Files.probeContentType(path))
                     .header("Access-Control-Allow-Origin", "*")
                     .header("Access-Control-Allow-Headers", "origin, content-type, accept")
                     .header("Access-Control-Allow-Credentials", "true")
                     .header("Access-Control-Allow-Methods", "GET, POST")
                     .header("Access-Control-Max-Age", "1209600").build();
+        } catch (IOException e) {
+            log.error("Can't upload file {}", e);
+            return Response.serverError().build();
+        }
     }
 
     @GET
     @Path("/video/{uuid}")
     @Produces(MediaType.TEXT_HTML)
-    public Response getVideo() throws IOException {
+    public Response getVideo() {
 
         String baseUrl = uri.getBaseUri().getHost();
 
@@ -84,17 +94,22 @@ public class SiteLoader {
         String streamer = urlParts[0];
         java.nio.file.Path path = Paths.get(SITES_PATH + streamer + "/index.html");
         log.debug("streamer {} page loaded", streamer);
+        try {
             return Response.ok().entity(new File(path.toString())).type(Files.probeContentType(path))
                     .header("Access-Control-Allow-Origin", "*")
                     .header("Access-Control-Allow-Headers", "origin, content-type, accept")
                     .header("Access-Control-Allow-Credentials", "true")
                     .header("Access-Control-Allow-Methods", "GET, POST")
                     .header("Access-Control-Max-Age", "1209600").build();
+        } catch (IOException e) {
+            log.error("Can't upload file {}", e);
+            return Response.serverError().build();
+        }
     }
 
     @GET
     @Path("{any: .*}")
-    public Response downloadFile() throws IOException {
+    public Response downloadFile() {
         String streamer;
         String baseUrl = uri.getBaseUri().getHost();
         String[] urlParts = baseUrl.split("\\.");
@@ -104,13 +119,19 @@ public class SiteLoader {
             streamer = "hub";
         }
         log.info(uri.getAbsolutePath() + " " + SITES_PATH + streamer + "/" + uri.getPath());
-        java.nio.file.Path path = Paths.get(SITES_PATH + streamer + "/" + uri.getPath());
+
+        try {
+            java.nio.file.Path path = Paths.get(SITES_PATH + streamer + "/" + uri.getPath());
             return Response.ok().entity(new File(path.toString())).type(Files.probeContentType(path))
                     .header("Access-Control-Allow-Origin", "*")
                     .header("Access-Control-Allow-Headers", "origin, content-type, accept")
                     .header("Access-Control-Allow-Credentials", "true")
                     .header("Access-Control-Allow-Methods", "GET, POST")
                     .header("Access-Control-Max-Age", "1209600").build();
+        } catch (IOException e) {
+            log.error("Can't upload file {}", e);
+            return Response.serverError().build();
+        }
     }
 
 }
