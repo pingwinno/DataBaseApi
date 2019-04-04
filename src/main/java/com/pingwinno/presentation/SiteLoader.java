@@ -11,8 +11,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Paths;
 
 
@@ -39,17 +37,12 @@ public class SiteLoader {
         }
         java.nio.file.Path path = Paths.get(SITES_PATH + streamer + "/index.html");
         log.debug("streamer {} page loaded", streamer);
-        try {
-            return Response.ok().entity(new File(path.toString())).type(Files.probeContentType(path))
-                    .header("Access-Control-Allow-Origin", "*")
-                    .header("Access-Control-Allow-Headers", "origin, content-type, accept")
-                    .header("Access-Control-Allow-Credentials", "true")
-                    .header("Access-Control-Allow-Methods", "GET, POST")
-                    .header("Access-Control-Max-Age", "1209600").build();
-        } catch (IOException e) {
-            log.error("Can't upload file {}", e);
-            return Response.serverError().build();
-        }
+        return Response.ok().entity(new File(path.toString()))
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Headers", "origin, content-type, accept")
+                .header("Access-Control-Allow-Credentials", "true")
+                .header("Access-Control-Allow-Methods", "GET, POST")
+                .header("Access-Control-Max-Age", "1209600").build();
     }
 
     @GET
@@ -69,17 +62,12 @@ public class SiteLoader {
         }
         java.nio.file.Path path = Paths.get(SITES_PATH + streamer + "/index.html");
         log.debug("streamer {} page loaded", streamer);
-        try {
-            return Response.ok().entity(new File(path.toString())).type(Files.probeContentType(path))
-                    .header("Access-Control-Allow-Origin", "*")
-                    .header("Access-Control-Allow-Headers", "origin, content-type, accept")
-                    .header("Access-Control-Allow-Credentials", "true")
-                    .header("Access-Control-Allow-Methods", "GET, POST")
-                    .header("Access-Control-Max-Age", "1209600").build();
-        } catch (IOException e) {
-            log.error("Can't upload file {}", e);
-            return Response.serverError().build();
-        }
+        return Response.ok().entity(new File(path.toString()))
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Headers", "origin, content-type, accept")
+                .header("Access-Control-Allow-Credentials", "true")
+                .header("Access-Control-Allow-Methods", "GET, POST")
+                .header("Access-Control-Max-Age", "1209600").build();
     }
 
     @GET
@@ -94,17 +82,12 @@ public class SiteLoader {
         String streamer = urlParts[0];
         java.nio.file.Path path = Paths.get(SITES_PATH + streamer + "/index.html");
         log.trace("streamer {} page loaded", streamer);
-        try {
-            return Response.ok().entity(new File(path.toString())).type(Files.probeContentType(path))
-                    .header("Access-Control-Allow-Origin", "*")
-                    .header("Access-Control-Allow-Headers", "origin, content-type, accept")
-                    .header("Access-Control-Allow-Credentials", "true")
-                    .header("Access-Control-Allow-Methods", "GET, POST")
-                    .header("Access-Control-Max-Age", "1209600").build();
-        } catch (IOException e) {
-            log.error("Can't upload file {}", e);
-            return Response.serverError().build();
-        }
+        return Response.ok().entity(new File(path.toString()))
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Headers", "origin, content-type, accept")
+                .header("Access-Control-Allow-Credentials", "true")
+                .header("Access-Control-Allow-Methods", "GET, POST")
+                .header("Access-Control-Max-Age", "1209600").build();
     }
 
     @GET
@@ -121,7 +104,7 @@ public class SiteLoader {
 
         try {
             java.nio.file.Path path = Paths.get(SITES_PATH + streamer + "/" + uri.getPath());
-            return Response.ok().entity(new File(path.toString())).type(Files.probeContentType(path))
+            return Response.ok().entity(new File(path.toString()))
                     .header("Access-Control-Allow-Origin", "*")
                     .header("Access-Control-Allow-Headers", "origin, content-type, accept")
                     .header("Access-Control-Allow-Credentials", "true")
