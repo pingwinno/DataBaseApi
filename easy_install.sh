@@ -22,7 +22,7 @@ else
   adduser --system --no-create-home --group db-daemon
   mkdir /usr/local/DataBaseApi/
   mkdir /var/log/db/
-  chown archive-daemon /var/log/db/
+  chown db-daemon /var/log/db/
   chmod u+w /var/log/db/
    mkdir /etc/db/
     mv config.prop /etc/db/
