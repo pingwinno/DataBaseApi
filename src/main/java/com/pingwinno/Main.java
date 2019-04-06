@@ -4,8 +4,6 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pingwinno.infrastructure.MongoDBHandler;
 import com.pingwinno.presentation.DbHandler;
-import com.pingwinno.presentation.OldApi;
-import com.pingwinno.presentation.SiteLoader;
 import org.apache.commons.daemon.Daemon;
 import org.apache.commons.daemon.DaemonContext;
 import org.eclipse.jetty.server.Server;
@@ -43,11 +41,8 @@ public class Main implements Daemon {
         jerseyServlet.setInitOrder(0);
 
         // Tells the Jersey Servlet which REST service/class to load.
-        jerseyServlet.setInitParameter(
-                "jersey.config.server.provider.classnames",
-                String.join(",",OldApi.class.getCanonicalName(),DbHandler.class.getCanonicalName(),
-                        SiteLoader.class.getCanonicalName())
-                );
+        jerseyServlet.setInitParameter("jersey.config.server.provider.classnames",
+                String.join(DbHandler.class.getCanonicalName()));
         try {
             jettyServer.start();
             jettyServer.join();
@@ -71,7 +66,7 @@ public class Main implements Daemon {
     }
 
     @Override
-    public void stop() throws Exception {
+    public void stop() {
 
     }
 

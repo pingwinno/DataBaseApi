@@ -13,6 +13,21 @@ public class QueryModel {
     private int skip; // skip elements. Positive number skip begin of list, negative from end.
     private ArrayList<String> includeFields;
 
+    @Override
+    public String toString() {
+        return "QueryModel{" +
+                "collection='" + collection + '\'' +
+                ", sortingOrder='" + sortingOrder + '\'' +
+                ", sortBy='" + sortBy + '\'' +
+                ", equalOperator='" + equalOperator + '\'' +
+                ", equalsField='" + equalsField + '\'' +
+                ", equalsValue='" + equalsValue + '\'' +
+                ", limit=" + limit +
+                ", skip=" + skip +
+                ", includeFields=" + includeFields +
+                '}';
+    }
+
     public int getLimit() {
         return limit;
     }

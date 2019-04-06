@@ -56,7 +56,7 @@ public class DbHandler {
             includeFields.add("animated_preview");
         }
         queryModel.setIncludeFields(new ArrayList<>(includeFields));
-
+        log.trace("Request: {}", queryModel.toString());
         return Response.accepted().entity(MongoQueryDirector.makeBuilder(queryModel))
                 .header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
@@ -93,7 +93,7 @@ public class DbHandler {
         queryModel.setSkip(skip);
 
         queryModel.setIncludeFields(new ArrayList<>(includeFields));
-
+        log.trace("Request: {}", queryModel.toString());
         return Response.accepted().entity(MongoQueryDirector.makeBuilder(queryModel))
                 .header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
