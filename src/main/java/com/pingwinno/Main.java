@@ -42,7 +42,7 @@ public class Main implements Daemon {
 
         // Tells the Jersey Servlet which REST service/class to load.
         jerseyServlet.setInitParameter("jersey.config.server.provider.classnames",
-                String.join(DbHandler.class.getCanonicalName()));
+                DbHandler.class.getCanonicalName());
         try {
             jettyServer.start();
             jettyServer.join();
