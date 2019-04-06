@@ -1,0 +1,15 @@
+
+[Unit]
+Description=db Service
+After=multi-user.target
+
+[Service]
+Type=forking
+User=db-daemon
+
+ExecStart=/bin/bash /usr/local/bin/db.sh start
+ExecStop=/bin/bash /usr/local/bin/db.sh stop
+ExecReload =/bin/bash /usr/local/bin/db.sh restart
+
+[Install]
+WantedBy=multi-user.target

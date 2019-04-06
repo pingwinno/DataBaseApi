@@ -3,12 +3,12 @@
 # Setup variables
 EXEC=/usr/bin/jsvc
 JAVA_HOME="$( readlink -f "$( which java )" | sed "s:bin/.*$::" )"
-CLASS_PATH="/usr/share/java/commons-daemon.jar":"/usr/local/StreamArchiveBackend/ArchivePortal.jar"
+CLASS_PATH="/usr/share/java/commons-daemon.jar":"/usr/local/StreamArchiveBackend/DataBaseApi.jar"
 CLASS=com.pingwinno.Main
-USER=archive-daemon
-PID=/tmp/archive.pid
-LOG_OUT=/tmp/archive.out
-LOG_ERR=/tmp/archive.err
+USER=db-daemon
+PID=/tmp/db.pid
+LOG_OUT=/tmp/db.out
+LOG_ERR=/tmp/db.err
 
 do_exec()
 {
