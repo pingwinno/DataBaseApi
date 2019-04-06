@@ -30,11 +30,11 @@ fi
 
 
 mv ./target/DataBaseApi.jar /usr/local/DataBaseApi/
-mv archive.sh /usr/local/bin/
+mv db.sh /usr/local/bin/
 chmod +x /usr/local/bin/db.sh
 
 
-cp archive.service /etc/systemd/system/db.service
+cp db.service /etc/systemd/system/db.service
 cd ../
 rm -rf DataBaseApi
 chmod 644 /etc/systemd/system/db.service
