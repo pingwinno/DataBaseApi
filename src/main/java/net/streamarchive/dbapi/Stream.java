@@ -1,6 +1,7 @@
 package net.streamarchive.dbapi;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
@@ -15,6 +16,7 @@ import java.util.UUID;
 @Table(name = "STREAMS")
 public class Stream {
     @Id
+    @JsonProperty("_id")
     private UUID uuid;
     private Date date;
     @Field

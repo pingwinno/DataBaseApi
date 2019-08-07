@@ -13,7 +13,7 @@ import java.util.List;
 public class StreamSearchService {
     @Autowired
     EntityManager entityManager;
-    QueryBuilder queryBuilder;
+    private QueryBuilder queryBuilder;
 
     public void initService(EntityManager entityManager) throws InterruptedException {
         FullTextEntityManager fullTextEntityManager = org.hibernate.search.jpa.Search.getFullTextEntityManager(entityManager);
