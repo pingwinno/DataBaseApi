@@ -22,7 +22,7 @@ public class StreamsRestApi {
     public List<Stream> getStreams(@RequestParam(value = "streamer") String streamer, @RequestParam(value = "page", defaultValue = "0"
             , required = false) int page, @RequestParam(value = "size", defaultValue = "20", required = false) int size,
                                    @RequestParam(value = "sort", defaultValue = "desc", required = false) String sort,
-                                   @RequestParam(value = "order_by") String orderBy) {
+                                   @RequestParam(value = "order_by", defaultValue = "date", required = false) String orderBy) {
 
         Sort.Direction sortDirection;
         if (sort.equals("asc")) {
