@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/streams")
@@ -17,11 +18,11 @@ public class StreamsRestApi {
     @Autowired
     StreamSearchService streamSearchService;
 
-    @RequestMapping(value = "{streamer}", method = RequestMethod.GET)
-    public List<Stream> getStreams(@PathVariable("streamer") String streamer, @RequestParam(value = "page", defaultValue = "0"
+    @RequestMapping(method = RequestMethod.GET)
+    public List<Stream> getStreams(@RequestParam(value = "streamer") String streamer, @RequestParam(value = "page", defaultValue = "0"
             , required = false) int page, @RequestParam(value = "size", defaultValue = "20", required = false) int size,
                                    @RequestParam(value = "sort", defaultValue = "desc", required = false) String sort,
-                                   @RequestParam("order_by") String orderBy) {
+                                   @RequestParam(value = "order_by") String orderBy) {
 
         Sort.Direction sortDirection;
         if (sort.equals("asc")) {
@@ -31,9 +32,15 @@ public class StreamsRestApi {
         } else {
             throw new BadRequestException();
         }
-
         return streamsRepository.findAllByStreamer(streamer, PageRequest.of(page, size, Sort.by(Sort.Order.by(orderBy)
                 .with(sortDirection))));
+    }
+
+    @RequestMapping(value = "{uuid}")
+    public Stream getStream(@PathVariable("uuid") String uuid) {
+
+        return streamsRepository.findById(UUID.fromString(uuid)).orElseThrow(NotFoundException::new);
+
     }
 
     @RequestMapping(value = "/{streamer}/search", method = RequestMethod.GET)
@@ -43,5 +50,9 @@ public class StreamsRestApi {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     private class BadRequestException extends RuntimeException {
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    private class NotFoundException extends RuntimeException {
     }
 }
