@@ -19,6 +19,11 @@ public class StreamsRestApi {
     @Autowired
     StreamSearchService streamSearchService;
 
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public List findStreams(@RequestParam("streamer") String streamer, @RequestParam("query") String query) {
+        return streamSearchService.findStreams(streamer, query);
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     public List<Stream> getStreams(@RequestParam(value = "streamer") String streamer, @RequestParam(value = "page", defaultValue = "0"
             , required = false) int page, @RequestParam(value = "size", defaultValue = "20", required = false) int size,
@@ -33,20 +38,13 @@ public class StreamsRestApi {
         } else {
             throw new BadRequestException();
         }
-        return streamsRepository.findAllByStreamer(streamer, PageRequest.of(page, size, Sort.by(Sort.Order.by(orderBy)
+        return streamsRepository.findAllByStreamerName(streamer, PageRequest.of(page, size, Sort.by(Sort.Order.by(orderBy)
                 .with(sortDirection))));
     }
 
     @RequestMapping(value = "{uuid}")
     public Stream getStream(@PathVariable("uuid") String uuid) {
-
         return streamsRepository.findById(UUID.fromString(uuid)).orElseThrow(NotFoundException::new);
-
-    }
-
-    @RequestMapping(value = "/{streamer}/search", method = RequestMethod.GET)
-    public List findStreams(@PathVariable("streamer") String streamer, @RequestParam("query") String query) {
-        return streamSearchService.findStreams(streamer, query);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

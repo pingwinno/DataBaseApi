@@ -43,7 +43,7 @@ public class StreamSearchService {
                         .matching(queryString + "*")
                         .createQuery()).createQuery()).must(queryBuilder
                 .keyword()
-                .onField("streamer")
+                .onField("streamer.name")
                 .matching(streamer)
                 .createQuery()).createQuery();
 

@@ -9,5 +9,5 @@ import java.util.UUID;
 
 @Repository
 public interface StreamsRepository extends JpaRepository<Stream, UUID> {
-    List<Stream> findAllByStreamer(String streamer, Pageable pageable);
+    List<Stream> findAllByStreamerName(String streamer, Pageable pageable);
 }

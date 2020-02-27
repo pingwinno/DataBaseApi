@@ -4,10 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
@@ -25,8 +24,10 @@ public class Stream {
     private String game;
     private long duration;
     @JsonIgnore
-    @Field
-    private String streamer;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "streamer_id")
+    @IndexedEmbedded
+    private Streamer streamer;
 
     public UUID getUuid() {
         return uuid;
@@ -68,11 +69,11 @@ public class Stream {
         this.duration = duration;
     }
 
-    public String getStreamer() {
+    public Streamer getStreamer() {
         return streamer;
     }
 
-    public void setStreamer(String streamer) {
+    public void setStreamer(Streamer streamer) {
         this.streamer = streamer;
     }
 
